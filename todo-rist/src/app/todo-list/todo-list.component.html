@@ -31,20 +31,14 @@
   <!-- Add Task Form (hidden by default) -->
   <app-add-task-form *ngIf="showAddTaskForm" (taskAdded)="onTaskAdded($event)"></app-add-task-form>
 
-  <!-- Task List -->
-  <div class="list-group" role="list">
-    <div *ngFor="let task of filteredTasks()" class="card mb-4 box-shadow" role="listitem">
+   <!-- Task List -->
+   <div class="list-group" role="list">
+    <div *ngFor="let task of filteredTasks()" [ngClass]="getPriorityClass(task.priority)" class="card mb-4 box-shadow" role="listitem">
       <div class="card-header">
         <h4 class="my-0 font-weight-normal">{{ task.name }}</h4>
       </div>
+      <div class="card-sub-header"></div>
       <div class="card-body">
-        <div style="height: 5px;" [ngClass]="getPriorityClass(task.priority)" class="priority-line"></div>
-      
-        <!-- <p class="card-text">
-          <span [ngClass]="getPriorityClass(task.priority)" [attr.aria-label]="'Priority: ' + task.priority">
-            <i [ngClass]="getPriorityIcon(task.priority)" aria-hidden="true"></i> {{ task.priority }}
-          </span>
-        </p> -->
         <p class="card-text">
           <span><strong>Status:</strong> {{ task.status }}</span>
         </p>
@@ -53,7 +47,7 @@
         </p>
         <!-- Edit and Delete Icons -->
         <div class="card-icons">
-          <i class="fas fa-edit" (click)="editTask(task)" title="Edit"></i>
+          <i class="fas fa-edit mr-2" (click)="editTask(task)" title="Edit"></i>
           <i class="fas fa-trash" (click)="deleteTask(task.id)" title="Delete"></i>
         </div>
       </div>

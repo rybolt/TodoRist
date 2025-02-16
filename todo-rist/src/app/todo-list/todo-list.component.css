@@ -126,22 +126,25 @@
   cursor: pointer;
 }
 
-.priority-line {
-  height: 5px;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+/* Edit and Delete Icons */
+.card-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
 }
 
-.text-danger .priority-line {
-  background-color: #dc3545;
+.card-sub-header {
+  height: 15px; /* Half the height of the card header */
 }
 
-.text-warning .priority-line {
-  background-color: #ffc107;
+.priority-high .card-sub-header {
+  background-color: rgba(220, 53, 69, 0.5); /* High priority with 50% transparency */
 }
 
-.text-success .priority-line {
-  background-color: #28a745;
+.priority-medium .card-sub-header {
+  background-color: rgba(255, 193, 7, 0.5); /* Medium priority with 50% transparency */
+}
+
+.priority-low .card-sub-header {
+  background-color: rgba(40, 167, 69, 0.5); /* Low priority with 50% transparency */
 }

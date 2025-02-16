@@ -84,15 +84,17 @@ export class TodoListComponent implements OnInit, AfterViewInit {
   getPriorityClass(priority: Priority): string {
     switch (priority) {
       case Priority.High:
-        return 'text-danger';
+        return 'priority-high';
       case Priority.Medium:
-        return 'text-warning';
+        return 'priority-medium';
       case Priority.Low:
-        return 'text-success';
+        return 'priority-low';
       default:
         return '';
     }
   }
+  
+  
 
   getPriorityIcon(priority: Priority): string {
     switch (priority) {
