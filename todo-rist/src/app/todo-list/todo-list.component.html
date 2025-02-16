@@ -1,60 +1,62 @@
 <div class="container">
-    <!-- Header with Add Task and Filters -->
-    <div class="fixed-header d-flex justify-content-between align-items-center mb-4">
-      <button class="btn btn-primary" (click)="toggleAddTaskForm()" title="Add a new task">
+  <!-- Header with Add Task and Filters -->
+  <div class="fixed-header d-flex justify-content-between align-items-center mb-4">
+    <div class="header-left">
+      <button class="btn btn-primary fixed-width-btn" (click)="toggleAddTaskForm()" title="Add a new task">
         <i class="fas fa-plus"></i>
       </button>
-      <div class="d-flex">
-        <div class="form-group mr-2">
-          <label for="filterStatus">
-            <i class="fas fa-filter" aria-hidden="true"></i> Status
-          </label>
-          <select id="filterStatus" class="form-control" [(ngModel)]="filterStatus">
-            <option value="">All</option>
-            <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="filterPriority">
-            <i class="fas fa-filter" aria-hidden="true"></i> Priority
-          </label>
-          <select id="filterPriority" class="form-control" [(ngModel)]="filterPriority">
-            <option value="">All</option>
-            <option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</option>
-          </select>
-        </div>
+    </div>
+    <div class="d-flex">
+      <div class="form-group mr-2">
+        <label for="filterStatus">
+          <i class="fas fa-filter" aria-hidden="true"></i> Status
+        </label>
+        <select id="filterStatus" class="form-control" [(ngModel)]="filterStatus">
+          <option value="">All</option>
+          <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="filterPriority">
+          <i class="fas fa-filter" aria-hidden="true"></i> Priority
+        </label>
+        <select id="filterPriority" class="form-control" [(ngModel)]="filterPriority">
+          <option value="">All</option>
+          <option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</option>
+        </select>
       </div>
     </div>
-  
-    <!-- Add Task Form (hidden by default) -->
-    <app-add-task-form *ngIf="showAddTaskForm" (taskAdded)="onTaskAdded($event)"></app-add-task-form>
-  
-    <!-- Task List -->
-    <div class="list-group" role="list">
-      <div *ngFor="let task of filteredTasks()" class="list-group-item" role="listitem">
-        <div class="d-flex align-items-center">
-          <input type="checkbox" [checked]="task.status === 'completed'" (change)="toggleTaskStatus(task)">
-          <h5 class="mb-1 ml-2" [ngClass]="{'completed-task': task.status === 'completed'}" id="task-{{task.id}}">
-            {{ task.name }}
-          </h5>
-        </div>
-        <p class="mb-1">
+  </div>
+
+  <!-- Add Task Form (hidden by default) -->
+  <app-add-task-form *ngIf="showAddTaskForm" (taskAdded)="onTaskAdded($event)"></app-add-task-form>
+
+  <!-- Task List -->
+  <div class="list-group" role="list">
+    <div *ngFor="let task of filteredTasks()" class="card mb-4 box-shadow" role="listitem">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">{{ task.name }}</h4>
+      </div>
+      <div class="card-body">
+        <div style="height: 5px;" [ngClass]="getPriorityClass(task.priority)" class="priority-line"></div>
+      
+        <!-- <p class="card-text">
           <span [ngClass]="getPriorityClass(task.priority)" [attr.aria-label]="'Priority: ' + task.priority">
             <i [ngClass]="getPriorityIcon(task.priority)" aria-hidden="true"></i> {{ task.priority }}
           </span>
-        </p>
-        <p class="mb-1">
+        </p> -->
+        <p class="card-text">
           <span><strong>Status:</strong> {{ task.status }}</span>
         </p>
-        <p class="mb-1" *ngIf="task.dueDate">
-          <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> <strong>Due Date:</strong> {{ task.dueDate | date:'fullDate' }}</span>
+        <p class="card-text" *ngIf="task.dueDate">
+          <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> {{ task.dueDate | date:'fullDate' }}</span>
         </p>
-        <!-- Edit and Delete Buttons -->
-        <div class="btn-group">
-          <button class="btn btn-sm btn-secondary mr-2" (click)="editTask(task)">Edit</button>
-          <button class="btn btn-sm btn-danger" (click)="deleteTask(task.id)">Delete</button>
+        <!-- Edit and Delete Icons -->
+        <div class="card-icons">
+          <i class="fas fa-edit" (click)="editTask(task)" title="Edit"></i>
+          <i class="fas fa-trash" (click)="deleteTask(task.id)" title="Delete"></i>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
