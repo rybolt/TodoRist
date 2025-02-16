@@ -1,0 +1,60 @@
+/* Add spacing between tasks */
+.list-group-item {
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1rem;
+    background-color: #f9f9f9;
+  }
+  
+  /* Make the task name pop out with a different background */
+  .list-group-item h5 {
+    background-color: #e3f2fd;
+    padding: 0.5rem;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Add some styling to the priority icons and text */
+  .list-group-item .text-danger {
+    color: #dc3545 !important;
+  }
+  
+  .list-group-item .text-warning {
+    color: #ffc107 !important;
+  }
+  
+  .list-group-item .text-success {
+    color: #28a745 !important;
+  }
+  
+  /* Fixed header */
+  .fixed-header {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Tooltip styling */
+  .tooltip-inner {
+    background-color: #000;
+    color: #fff;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    padding: 5px 10px;
+  }
+  
+  /* Strikethrough for completed tasks */
+  .completed-task {
+    text-decoration: line-through;
+  }
+  
+  /* Add spacing between buttons */
+  .btn-group .btn {
+    margin-right: 0.5rem;
+  }
+  
