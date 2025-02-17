@@ -20,6 +20,7 @@ export class LoginComponent {
     if (this.email == "ryan@nospam.com" && this.password == "please")
     {
       //route to todo list
+      localStorage.setItem('todo-email', this.email);
       this.router.navigate(['/todo-list']);
     }
     else

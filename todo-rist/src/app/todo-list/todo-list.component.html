@@ -2,7 +2,7 @@
   <!-- Header with Add Task and Filters -->
   <div class="fixed-header d-flex justify-content-between align-items-center mb-4">
     <div class="header-left">
-      <button class="btn btn-primary fixed-width-btn" (click)="toggleAddTaskForm()" title="Add a new task">
+      <button class="btn btn-primary fixed-width-btn" (click)="toggleTaskForm()" title="Add a new task">
         <i class="fas fa-plus"></i>
       </button>
     </div>
@@ -28,12 +28,11 @@
     </div>
   </div>
 
-  <!-- Add Task Form (hidden by default) -->
-  <app-add-task-form *ngIf="showAddTaskForm" (taskAdded)="onTaskAdded($event)" ></app-add-task-form>
+  <app-task-form *ngIf="showTaskForm && !selectedTask" (taskSaved)="onTaskSaved($event)" (formCancelled)="onFormCancelled()"></app-task-form>
 
-   <!-- Task List -->
-   <div class="list-group" role="list">
-    <div *ngFor="let task of filteredTasks()" [ngClass]="getPriorityClass(task.priority)" class="card mb-4 box-shadow" role="listitem">
+  <!-- Task List -->
+  <div class="list-group" role="list">
+    <div *ngFor="let task of filteredTasks();" [ngClass]="getPriorityClass(task.priority)" class="card mb-4 box-shadow" role="listitem">
       <div class="card-header d-flex align-items-center">
         <i class="fas" [ngClass]="task.status === 'completed' ? 'fa fa-check' : ''" (click)="toggleTaskStatus(task)" title="Toggle Task Status" aria-label="Toggle Task Status" class="mr-2"></i>
         <h4 class="my-0 font-weight-normal" [ngClass]="{'text-decoration-line-through': task.status === 'completed'}">
@@ -48,12 +47,13 @@
         <p class="card-text" *ngIf="task.dueDate">
           <span><i class="fas fa-calendar-alt" aria-hidden="true"></i> {{ task.dueDate | date:'fullDate' }}</span>
         </p>
-        <!-- Edit and Delete Icons -->
         <div class="card-icons">
           <i class="fas fa-edit mr-2" (click)="editTask(task)" title="Edit" aria-label="Edit Task"></i>
           <i class="fas fa-trash" (click)="deleteTask(task.id)" title="Delete" aria-label="Delete Task"></i>
         </div>
       </div>
+      <!-- Show form below task being edited -->
+      <app-task-form *ngIf="showTaskForm && selectedTask?.id === task.id" [task]="selectedTask" (taskSaved)="onTaskSaved($event)" (formCancelled)="onFormCancelled()"></app-task-form>
     </div>
   </div>
 </div>

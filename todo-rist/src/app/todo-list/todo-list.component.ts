@@ -2,7 +2,9 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Task, Status, Priority } from './task.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AddTaskComponent } from '../add-task/add-task.component';
+import { TaskFormComponent } from '../task-form/task-form.component';
+import { Router} from '@angular/router';
+
 declare var $: any;
 
 @Component({
@@ -10,18 +12,24 @@ declare var $: any;
   standalone: true,
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css'],
-  imports: [CommonModule, FormsModule, AddTaskComponent]
+  imports: [CommonModule, FormsModule, TaskFormComponent]
 })
 export class TodoListComponent implements OnInit, AfterViewInit {
   tasks: Task[] = [];
+  showTaskForm = false;
+  selectedTask: Task | null = null;
   statuses = Object.values(Status);
   priorities = Object.values(Priority);
-  showAddTaskForm = false;
   filterStatus: string = '';
   filterPriority: string = '';
 
+  constructor(private router: Router) {}
+
   ngOnInit() {
-    this.loadTasks();
+    if (localStorage.getItem('todo-email'))
+      this.loadTasks();
+    else
+      this.router.navigate(['/login']);
   }
 
   ngAfterViewInit() {
@@ -32,8 +40,7 @@ export class TodoListComponent implements OnInit, AfterViewInit {
     const tasks = localStorage.getItem('tasks');
     if (tasks) {
       this.tasks = JSON.parse(tasks);
-    }
-    else{
+    } else {
       this.tasks = [
         new Task(1, 'Do taxes', Status.Completed, Priority.High, new Date('2025-02-20')),
         new Task(2, 'Walk the poodle mix', Status.InProgress, Priority.Medium),
@@ -44,7 +51,6 @@ export class TodoListComponent implements OnInit, AfterViewInit {
         new Task(7, 'Do a quick house cleaning', Status.Completed, Priority.High, new Date('2025-02-20')),
         new Task(8, 'Walk the poodle mix, yet AGAIN', Status.InProgress, Priority.Medium),
         new Task(9, 'Fertilize the yard', Status.NotStarted, Priority.Low, new Date('2025-02-25'))
-     
       ];
     }
   }
@@ -53,14 +59,25 @@ export class TodoListComponent implements OnInit, AfterViewInit {
     localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
-  toggleAddTaskForm() {
-    this.showAddTaskForm = !this.showAddTaskForm;
+  toggleTaskForm() {
+    this.selectedTask = null;
+    this.showTaskForm = !this.showTaskForm;    
   }
 
-  onTaskAdded(task: Task) {
-    this.tasks.push(task);
+  onTaskSaved(task: Task) {
+    const existingTaskIndex = this.tasks.findIndex(t => t.id === task.id);
+    if (existingTaskIndex !== -1) {
+      this.tasks[existingTaskIndex] = task;
+    } else {
+      task.id = Date.now(); // Use current timestamp as unique ID for new tasks
+      this.tasks.push(task);
+    }
     this.saveTasks();
-    this.showAddTaskForm = false;
+    this.showTaskForm = false;
+  }
+
+  onFormCancelled() {
+    this.showTaskForm = false;
   }
 
   toggleTaskStatus(task: Task) {
@@ -69,11 +86,8 @@ export class TodoListComponent implements OnInit, AfterViewInit {
   }
 
   editTask(task: Task) {
-    const editedTask = prompt('Edit task name:', task.name);
-    if (editedTask !== null) {
-      task.name = editedTask;
-      this.saveTasks();
-    }
+    this.selectedTask = { ...task };
+    this.showTaskForm = true;
   }
 
   deleteTask(taskId: number) {
@@ -83,7 +97,6 @@ export class TodoListComponent implements OnInit, AfterViewInit {
       this.saveTasks();
     }
   }
-  
 
   getPriorityClass(priority: Priority): string {
     switch (priority) {
@@ -97,8 +110,6 @@ export class TodoListComponent implements OnInit, AfterViewInit {
         return '';
     }
   }
-  
-  
 
   getPriorityIcon(priority: Priority): string {
     switch (priority) {
@@ -114,9 +125,30 @@ export class TodoListComponent implements OnInit, AfterViewInit {
   }
 
   filteredTasks(): Task[] {
-    return this.tasks.filter(task =>
-      (this.filterStatus ? task.status === this.filterStatus : true) &&
-      (this.filterPriority ? task.priority === this.filterPriority : true)
-    );
+    return this.tasks
+      .filter(task =>
+        (this.filterStatus ? task.status === this.filterStatus : true) &&
+        (this.filterPriority ? task.priority === this.filterPriority : true)
+      )
+      .sort((a, b) => {
+        // If both tasks have due dates, sort by due date
+        if (a.dueDate && b.dueDate) {
+          return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+        }
+        // If only one task has a due date, it comes first
+        if (a.dueDate && !b.dueDate) return -1;
+        if (!a.dueDate && b.dueDate) return 1;
+        // If neither task has a due date, sort by priority
+        if (a.priority !== b.priority) {
+          return this.comparePriority(a.priority, b.priority);
+        }
+        return 0;
+      });
   }
+  
+  comparePriority(a: Priority, b: Priority): number {
+    const priorityOrder = [Priority.High, Priority.Medium, Priority.Low];
+    return priorityOrder.indexOf(a) - priorityOrder.indexOf(b);
+  }
+  
 }
