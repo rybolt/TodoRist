@@ -34,8 +34,11 @@
    <!-- Task List -->
    <div class="list-group" role="list">
     <div *ngFor="let task of filteredTasks()" [ngClass]="getPriorityClass(task.priority)" class="card mb-4 box-shadow" role="listitem">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">{{ task.name }}</h4>
+      <div class="card-header d-flex align-items-center">
+        <i class="fas" [ngClass]="task.status === 'completed' ? 'fa fa-check' : ''" (click)="toggleTaskStatus(task)" title="Toggle Task Status" aria-label="Toggle Task Status" class="mr-2"></i>
+        <h4 class="my-0 font-weight-normal" [ngClass]="{'text-decoration-line-through': task.status === 'completed'}">
+          {{ task.name }}
+        </h4>
       </div>
       <div class="card-sub-header"></div>
       <div class="card-body">

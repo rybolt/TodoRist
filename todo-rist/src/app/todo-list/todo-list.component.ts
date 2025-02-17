@@ -77,9 +77,13 @@ export class TodoListComponent implements OnInit, AfterViewInit {
   }
 
   deleteTask(taskId: number) {
-    this.tasks = this.tasks.filter(task => task.id !== taskId);
-    this.saveTasks();
+    const confirmation = window.confirm('Are you sure you want to delete this task?');
+    if (confirmation) {
+      this.tasks = this.tasks.filter(task => task.id !== taskId);
+      this.saveTasks();
+    }
   }
+  
 
   getPriorityClass(priority: Priority): string {
     switch (priority) {
