@@ -29,7 +29,7 @@
   </div>
 
   <!-- Add Task Form (hidden by default) -->
-  <app-add-task-form *ngIf="showAddTaskForm" (taskAdded)="onTaskAdded($event)"></app-add-task-form>
+  <app-add-task-form *ngIf="showAddTaskForm" (taskAdded)="onTaskAdded($event)" ></app-add-task-form>
 
    <!-- Task List -->
    <div class="list-group" role="list">
@@ -47,8 +47,8 @@
         </p>
         <!-- Edit and Delete Icons -->
         <div class="card-icons">
-          <i class="fas fa-edit mr-2" (click)="editTask(task)" title="Edit"></i>
-          <i class="fas fa-trash" (click)="deleteTask(task.id)" title="Delete"></i>
+          <i class="fas fa-edit mr-2" (click)="editTask(task)" title="Edit" aria-label="Edit Task"></i>
+          <i class="fas fa-trash" (click)="deleteTask(task.id)" title="Delete" aria-label="Delete Task"></i>
         </div>
       </div>
     </div>
