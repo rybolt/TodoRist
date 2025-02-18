@@ -9,7 +9,9 @@
     <div class="form-group">
       <label for="taskStatus">Status</label>
       <select id="taskStatus" class="form-control" formControlName="status" aria-required="true" aria-label="Task Status">
-        <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+        <ng-container *ngFor="let status of statuses">
+          <option *ngIf="status !== 'completed' || task" [value]="status">{{ status }}</option>
+        </ng-container>
       </select>
       <div *ngIf="taskForm.get('status')?.invalid && taskForm.get('status')?.touched" class="text-danger">
         Status is required.
