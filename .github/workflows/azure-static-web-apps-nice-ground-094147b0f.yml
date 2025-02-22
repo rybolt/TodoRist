@@ -34,7 +34,7 @@ jobs:
           action: "upload"
           app_location: "./todo-rist" # Path to your Angular app source code
           api_location: "" # Leave empty if no API
-          output_location: "dist/todo-rist" # Path to the build output
+          output_location: "dist/todo-rist/browser" # Path to the build output
           config_file_location: "./todo-rist/src/assets" # Adjust if your config file is in a different location
           
   close_pull_request_job:
