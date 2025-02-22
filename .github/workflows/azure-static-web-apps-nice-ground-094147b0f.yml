@@ -21,8 +21,10 @@ jobs:
           lfs: false
       - name: Install dependencies
         run: npm install
+        working-directory: ./todo-rist
       - name: Build Angular app
         run: npm run build -- --configuration production
+        working-directory: ./todo-rist
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -33,7 +35,7 @@ jobs:
           app_location: "./todo-rist" # Path to your Angular app source code
           api_location: "" # Leave empty if no API
           output_location: "dist/todo-rist" # Path to the build output
-          config_file_location: "/assets"
+          config_file_location: "./todo-rist/assets" # Adjust if your config file is in a different location
           
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
