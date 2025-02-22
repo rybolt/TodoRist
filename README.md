@@ -4,6 +4,7 @@ TodoRist - Angular Todo App
 Welcome to **TodoRist**, a simple and intuitive todo list application built with Angular. This app allows you to manage your tasks efficiently and stay organized.
 
 > If you don't want to run local, just navigate here https://nice-ground-094147b0f.4.azurestaticapps.net/  , and skip the rest of the readme
+> > Remember to login with : ryan@nospam.com and _**please**_ as the password
 
 Prerequisites
 -------------
@@ -50,4 +51,4 @@ ng serve
 
 By default, the app will be served at `http://localhost:4200/`. Open your browser and navigate to this URL to view the app.
 
-> Remember to login with : ryan@nospam.com and _**please**_ as the password
+
