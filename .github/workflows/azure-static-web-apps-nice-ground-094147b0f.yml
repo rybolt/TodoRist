@@ -33,6 +33,7 @@ jobs:
           app_location: "./todo-rist" # Path to your Angular app source code
           api_location: "" # Leave empty if no API
           output_location: "dist/todo-rist" # Path to the build output
+          config_file_location: "/assets"
           
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
