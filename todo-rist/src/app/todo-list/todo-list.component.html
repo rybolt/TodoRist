@@ -1,9 +1,12 @@
 <div class="container">
   <!-- Header with Add Task and Filters -->
   <div class="fixed-header d-flex justify-content-between align-items-center mb-4">
-    <div class="header-left">
-      <button class="btn btn-primary fixed-width-btn" (click)="toggleTaskForm()" title="Add a new task">
+    <div class="header-left d-flex">
+      <button class="btn btn-primary fixed-width-btn mr-2" (click)="toggleTaskForm()" title="Add a new task">
         <i class="fas fa-plus"></i>
+      </button>
+      <button class="btn btn-danger fixed-width-btn" (click)="logOut()" title="Logout">
+        <i class="fas fa-sign-out-alt"></i>
       </button>
     </div>
     <div class="d-flex">

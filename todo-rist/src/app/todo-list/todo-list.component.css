@@ -39,11 +39,6 @@
   border-bottom: 1px solid #ddd;
 }
 
-/* Fixed-width button */
-.fixed-width-btn {
-  width: 50px !important; /* Adjust the width as needed */
-  display: inline-block;
-}
 
 /* Tooltip styling */
 .tooltip-inner {
@@ -107,6 +102,30 @@
   background-color: #007bff;
   color: white;
 }
+
+.btn-logout {
+  background-color: coral;
+  color:black
+}
+
+/* Ensure the buttons have the same width */
+.fixed-width-btn {
+  width: 100px; /* Adjust width as needed */
+}
+
+
+/* Additional styling for alignment */
+.header-left button {
+  margin-right: 10px; /* Adjust margin as needed */
+}
+
+@media (max-width: 576px) {
+  /* Responsive adjustments for smaller screens */
+  .fixed-width-btn {
+    width: 80px; /* Adjust width for smaller screens */
+  }
+}
+
 
 /* FontAwesome Edit and Delete Icons */
 

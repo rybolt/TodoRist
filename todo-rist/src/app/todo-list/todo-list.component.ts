@@ -64,6 +64,11 @@ export class TodoListComponent implements OnInit, AfterViewInit {
     this.showTaskForm = !this.showTaskForm;    
   }
 
+  logOut() {
+    localStorage.setItem('todo-email', '');
+    this.router.navigate(['/']);
+  }
+
   onTaskSaved(task: Task) {
     const existingTaskIndex = this.tasks.findIndex(t => t.id === task.id);
     if (existingTaskIndex !== -1) {
