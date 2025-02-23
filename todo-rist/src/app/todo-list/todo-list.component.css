@@ -124,15 +124,21 @@
   .fixed-width-btn {
     width: 80px; /* Adjust width for smaller screens */
   }
+
+  .card-icons i {
+    font-size: 1.2rem; /* Adjust icon size for smaller screens */
+    margin-right: 10px; /* Adjust spacing for smaller screens */
+  }
 }
 
 
 /* FontAwesome Edit and Delete Icons */
 
-.card-icons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 5px;
+/* Increase the size of the icons and add spacing */
+.card-icons i {
+  font-size: 1.5rem; /* Increase icon size */
+  margin-right: 15px; /* Add spacing between icons */
+  cursor: pointer; /* Add pointer cursor for better UX */
 }
 
 .fa-edit {
