@@ -1,4 +1,38 @@
-button.btn {
-    margin: 3px;
+/* Ensure the card takes up full height on smaller screens */
+.card {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Responsive font sizes */
+h2 {
+  font-size: 2rem; /* Adjust as needed */
+}
+
+.form-group label {
+  font-size: 1rem; /* Adjust as needed */
+}
+
+.form-text {
+  font-size: 0.875rem; /* Adjust as needed */
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 576px) {
+  .card {
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
-  
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-group label {
+    font-size: 0.875rem;
+  }
+
+  .form-text {
+    font-size: 0.75rem;
+  }
+}
